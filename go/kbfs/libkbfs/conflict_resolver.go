@@ -3679,7 +3679,7 @@ func (cr *ConflictResolver) doResolve(ctx context.Context, ci conflictInput) {
 func (cr *ConflictResolver) clearConflictRecords() error {
 	db := cr.config.GetConflictResolutionDB()
 	key := cr.fbo.id().Bytes()
-	return db.Delete(key)
+	return db.Delete(key, nil)
 }
 
 func openCRDBInternal(config Config) (*LevelDb, error) {

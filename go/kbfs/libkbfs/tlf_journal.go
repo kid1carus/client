@@ -2486,7 +2486,8 @@ func (j *tlfJournal) moveAway(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	newDirName := fmt.Sprintf("%s-%d.bak", tlfEncoded, time.Now().UnixNano())
+	newDirName := fmt.Sprintf("%s-%d.bak", tlfEncoded,
+		j.config.Clock().Now().UnixNano())
 	fullDirName := filepath.Join(restDir, newDirName)
 
 	err = os.Rename(j.dir, fullDirName)
