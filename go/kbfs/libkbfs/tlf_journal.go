@@ -6,6 +6,7 @@ package libkbfs
 
 import (
 	"fmt"
+	"os"
 	"path/filepath"
 	"sync"
 	"time"
@@ -2472,6 +2473,59 @@ func (j *tlfJournal) doResolveBranch(ctx context.Context,
 	// block data files before the flush gets to them.
 
 	return irmd, false, nil
+}
+
+func (j *tlfJournal) moveAway(ctx context.Context) error {
+	j.journalLock.Lock()
+	defer j.journalLock.Unlock()
+	// j.dir is X/y-z. Current timestamp is T. Move directory X/y-z to X/z-T.bak
+	// and then rebuild it.
+	restDir, lastDir := filepath.Split(j.dir)
+	var ignored, tlfEncoded string
+	_, err := fmt.Sscanf(lastDir, "%s-%s", &ignored, &tlfEncoded)
+	if err != nil {
+		return err
+	}
+	newDirName := fmt.Sprintf("%s-%d.bak", tlfEncoded, time.Now().UnixNano())
+	fullDirName := filepath.Join(restDir, newDirName)
+
+	err = os.Rename(j.dir, fullDirName)
+	if err != nil {
+		return err
+	}
+
+	err = os.MkdirAll(j.dir, 0700)
+	if err != nil {
+		return err
+	}
+
+	// Copy over the info.json file
+	infoData, err := ioutil.ReadFile(getTLFJournalInfoFilePath(fullDirName))
+	if err != nil {
+		return err
+	}
+	err = ioutil.WriteFile(getTLFJournalInfoFilePath(j.dir), infoData, 0600)
+	if err != nil {
+		return err
+	}
+
+	// Make new block and MD journals
+	blockJournal, err := makeBlockJournal(ctx, j.config.Codec(), j.dir, j.log)
+	if err != nil {
+		return err
+	}
+
+	mdJournal, err := makeMDJournal(ctx, j.uid, j.key, j.config.Codec(),
+		j.config.Crypto(), j.config.Clock(), j.config.teamMembershipChecker(),
+		j.tlfID, j.config.MetadataVersion(), j.dir, j.log)
+	if err != nil {
+		return err
+	}
+
+	j.blockJournal = blockJournal
+	j.mdJournal = mdJournal
+
+	return nil
 }
 
 func (j *tlfJournal) resolveBranch(ctx context.Context,

@@ -703,6 +703,44 @@ func (fbo *folderBranchOps) isUnmergedLocked(lState *lockState) bool {
 	return fbo.unmergedBID != kbfsmd.NullBranchID
 }
 
+var errJournalNotAvailable = errors.New("could not get journal for TLF")
+
+// clearConflictView tells the journal to move any pending writes elsewhere,
+// resets the CR counter, and resets the FBO to have a synced view of the TLF.
+func (fbo *folderBranchOps) clearConflictView(ctx context.Context) error {
+	// TODO later: show the cleared conflict view under a special path,
+	//  so users can copy any unmerged files manually back into
+	//  their synced view before nuking it.
+
+	// TODO: I'm probably forgetting something
+	// just having a way to automatically rename the journal directory,
+	// and resetting the FBO to have the synced view of the folder,
+	// will be good enough.
+	journalServer, err := GetJournalServer(fbo.config)
+	if err != nil {
+		return err
+	}
+	journal, ok := journalServer.getTLFJournal(fbo.folderBranch.Tlf,
+		fbo.head.GetTlfHandle())
+	if !ok {
+		return errJournalNotAvailable
+	}
+	err = journal.moveAway(ctx)
+	if err != nil {
+		return err
+	}
+
+	err = fbo.cr.clearConflictRecords()
+	if err != nil {
+		return err
+	}
+	lState := makeFBOLockState()
+	fbo.mdWriterLock.Lock(lState)
+	defer fbo.mdWriterLock.Unlock(lState)
+	fbo.setBranchIDLocked(lState, kbfsmd.NullBranchID)
+	return nil
+}
+
 func (fbo *folderBranchOps) setBranchIDLocked(lState *lockState, unmergedBID kbfsmd.BranchID) {
 	fbo.mdWriterLock.AssertLocked(lState)
 

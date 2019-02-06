@@ -3676,6 +3676,12 @@ func (cr *ConflictResolver) doResolve(ctx context.Context, ci conflictInput) {
 	// to clean up the quota anyway . . .)
 }
 
+func (cr *ConflictResolver) clearConflictRecords() error {
+	db := cr.config.GetConflictResolutionDB()
+	key := cr.fbo.id().Bytes()
+	return db.Delete(key)
+}
+
 func openCRDBInternal(config Config) (*LevelDb, error) {
 	if config.IsTestMode() {
 		return openLevelDB(storage.NewMemStorage())
