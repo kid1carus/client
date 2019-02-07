@@ -5,11 +5,13 @@
 package libkbfs
 
 import (
+	"errors"
 	"os"
 	"sync"
 	"testing"
 	"time"
 
+	"github.com/golang/mock/gomock"
 	"github.com/keybase/client/go/kbfs/ioutil"
 	"github.com/keybase/client/go/kbfs/kbfsmd"
 	"github.com/keybase/client/go/kbfs/tlf"
@@ -713,6 +715,110 @@ func TestBasicCRFileConflict(t *testing.T) {
 	require.NoError(t, err)
 	fileB2, _, err := kbfsOps2.Lookup(ctx, dirA2, "b")
 	require.NoError(t, err)
+
+	// disable updates on user 2
+	c, err := DisableUpdatesForTesting(config2, rootNode2.GetFolderBranch())
+	require.NoError(t, err)
+	err = DisableCRForTesting(config2, rootNode2.GetFolderBranch())
+	require.NoError(t, err)
+
+	// User 1 writes the file
+	data1 := []byte{1, 2, 3, 4, 5}
+	err = kbfsOps1.Write(ctx, fileB1, data1, 0)
+	require.NoError(t, err)
+	err = kbfsOps1.SyncAll(ctx, fileB1.GetFolderBranch())
+	require.NoError(t, err)
+
+	// User 2 makes a new different file
+	data2 := []byte{5, 4, 3, 2, 1}
+	err = kbfsOps2.Write(ctx, fileB2, data2, 0)
+	require.NoError(t, err)
+	err = kbfsOps2.SyncAll(ctx, fileB2.GetFolderBranch())
+	require.NoError(t, err)
+
+	// re-enable updates, and wait for CR to complete
+	c <- struct{}{}
+	err = RestartCRForTesting(
+		BackgroundContextWithCancellationDelayer(), config2,
+		rootNode2.GetFolderBranch())
+	require.NoError(t, err)
+	err = kbfsOps2.SyncFromServer(ctx,
+		rootNode2.GetFolderBranch(), nil)
+	require.NoError(t, err)
+
+	err = kbfsOps1.SyncFromServer(ctx,
+		rootNode1.GetFolderBranch(), nil)
+	require.NoError(t, err)
+
+	cre := WriterDeviceDateConflictRenamer{}
+	// Make sure they both see the same set of children
+	expectedChildren := []string{
+		"b",
+		cre.ConflictRenameHelper(now, "u2", "dev1", "b"),
+	}
+	children1, err := kbfsOps1.GetDirChildren(ctx, dirA1)
+	require.NoError(t, err)
+
+	children2, err := kbfsOps2.GetDirChildren(ctx, dirA2)
+	require.NoError(t, err)
+
+	assert.Equal(t, len(expectedChildren), len(children1))
+
+	for _, child := range expectedChildren {
+		_, ok := children1[child]
+		assert.True(t, ok)
+	}
+
+	require.Equal(t, children1, children2)
+}
+
+// Tests that if CR fails enough times it will stop trying,
+// and that we can move the conflicts out of the way.
+func TestBasicCRFailureAndFixing(t *testing.T) {
+	// simulate two users
+	var userName1, userName2 kbname.NormalizedUsername = "u1", "u2"
+	config1, _, ctx, cancel := kbfsOpsConcurInit(t, userName1, userName2)
+	defer kbfsConcurTestShutdown(t, config1, ctx, cancel)
+
+	config2 := ConfigAsUser(config1, userName2)
+	defer CheckConfigAndShutdown(ctx, t, config2)
+
+	clock, now := newTestClockAndTimeNow()
+	config2.SetClock(clock)
+
+	name := userName1.String() + "," + userName2.String()
+
+	// user1 creates a file in a shared dir
+	rootNode1 := GetRootNodeOrBust(ctx, t, config1, name, tlf.Private)
+
+	kbfsOps1 := config1.KBFSOps()
+	dirA1, _, err := kbfsOps1.CreateDir(ctx, rootNode1, "a")
+	require.NoError(t, err)
+	fileB1, _, err := kbfsOps1.CreateFile(ctx, dirA1, "b", false, NoExcl)
+	require.NoError(t, err)
+	err = kbfsOps1.SyncAll(ctx, rootNode1.GetFolderBranch())
+	require.NoError(t, err)
+
+	// look it up on user2
+	rootNode2 := GetRootNodeOrBust(ctx, t, config2, name, tlf.Private)
+
+	kbfsOps2 := config2.KBFSOps()
+	dirA2, _, err := kbfsOps2.Lookup(ctx, rootNode2, "a")
+	require.NoError(t, err)
+	fileB2, _, err := kbfsOps2.Lookup(ctx, dirA2, "b")
+	require.NoError(t, err)
+
+	// TODO: enable journaling for user 2
+
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mdOps := NewMockMDOps(ctrl)
+	mdOps.EXPECT().ResolveBranch(gomock.Any(), gomock.Any(), gomock.Any(),
+		gomock.Any(), gomock.Any(), gomock.Any()).Return(ImmutableRootMetadata{},
+		errors.New("fake error")).AnyTimes()
+	// TODO: expect Put call?
+	config2.SetMDOps(mdOps)
 
 	// disable updates on user 2
 	c, err := DisableUpdatesForTesting(config2, rootNode2.GetFolderBranch())

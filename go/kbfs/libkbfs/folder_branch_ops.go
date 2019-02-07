@@ -716,31 +716,32 @@ func (fbo *folderBranchOps) clearConflictView(ctx context.Context) error {
 	fbo.mdWriterLock.Lock(lState)
 	defer fbo.mdWriterLock.Unlock(lState)
 
-	err := fbo.unstageLocked(ctx, lState, false)
-	if err != nil {
-		return err
+	journalEnabled := TLFJournalEnabled(fbo.config, fbo.id())
+	if journalEnabled {
+		err := fbo.unstageLocked(ctx, lState, doNotPruneBranches)
+		if err != nil {
+			return err
+		}
+		journalServer, err := GetJournalServer(fbo.config)
+		if err != nil {
+			return err
+		}
+		journal, ok := journalServer.getTLFJournal(fbo.folderBranch.Tlf,
+			fbo.head.GetTlfHandle())
+		if !ok {
+			return errJournalNotAvailable
+		}
+		err = journal.moveAway(ctx)
+		if err != nil {
+			return err
+		}
+	} else {
+		err := fbo.unstageLocked(ctx, lState, doPruneBranches)
+		if err != nil {
+			return err
+		}
 	}
-
-	journalServer, err := GetJournalServer(fbo.config)
-	if err != nil {
-		return err
-	}
-	journal, ok := journalServer.getTLFJournal(fbo.folderBranch.Tlf,
-		fbo.head.GetTlfHandle())
-	if !ok {
-		return errJournalNotAvailable
-	}
-	err = journal.moveAway(ctx)
-	if err != nil {
-		return err
-	}
-
-	err = fbo.cr.clearConflictRecords()
-	if err != nil {
-		return err
-	}
-	fbo.setBranchIDLocked(lState, kbfsmd.NullBranchID)
-	return nil
+	return fbo.cr.clearConflictRecords()
 }
 
 func (fbo *folderBranchOps) setBranchIDLocked(lState *lockState, unmergedBID kbfsmd.BranchID) {
@@ -6515,6 +6516,11 @@ func (fbo *folderBranchOps) undoUnmergedMDUpdatesLocked(
 
 	return unmergedPtrs, nil
 }
+
+const (
+	doPruneBranches    = true
+	doNotPruneBranches = false
+)
 
 func (fbo *folderBranchOps) unstageLocked(ctx context.Context,
 	lState *lockState, doPrune bool) error {

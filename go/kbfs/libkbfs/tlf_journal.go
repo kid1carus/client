@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 	"sync"
 	"time"
 
@@ -2481,16 +2482,12 @@ func (j *tlfJournal) moveAway(ctx context.Context) error {
 	// j.dir is X/y-z. Current timestamp is T. Move directory X/y-z to X/z-T.bak
 	// and then rebuild it.
 	restDir, lastDir := filepath.Split(j.dir)
-	var ignored, tlfEncoded string
-	_, err := fmt.Sscanf(lastDir, "%s-%s", &ignored, &tlfEncoded)
-	if err != nil {
-		return err
-	}
-	newDirName := fmt.Sprintf("%s-%d.bak", tlfEncoded,
+	idParts := strings.Split(lastDir, "-")
+	newDirName := fmt.Sprintf("%s-%d.bak", idParts[len(idParts)-1],
 		j.config.Clock().Now().UnixNano())
 	fullDirName := filepath.Join(restDir, newDirName)
 
-	err = os.Rename(j.dir, fullDirName)
+	err := os.Rename(j.dir, fullDirName)
 	if err != nil {
 		return err
 	}
