@@ -582,6 +582,10 @@ type KBFSOps interface {
 	NewNotificationChannel(
 		ctx context.Context, handle *TlfHandle, convID chat1.ConversationID,
 		channelName string)
+	// ClearConflictView moves the conflict views of the given TLF out of the
+	// way and resets the state of the TLF.
+	ClearConflictView(ctx context.Context, tlfID tlf.ID) error
+
 	// Reset completely resets the given folder.  Should only be
 	// called after explicit user confirmation.  After the call,
 	// `handle` has the new TLF ID.
