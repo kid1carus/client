@@ -2551,6 +2551,20 @@ func (mr *MockKBFSOpsMockRecorder) NewNotificationChannel(ctx, handle, convID, c
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewNotificationChannel", reflect.TypeOf((*MockKBFSOps)(nil).NewNotificationChannel), ctx, handle, convID, channelName)
 }
 
+// ClearConflictView mocks base method
+func (m *MockKBFSOps) ClearConflictView(ctx context.Context, tlfID tlf.ID) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ClearConflictView", ctx, tlfID)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// ClearConflictView indicates an expected call of ClearConflictView
+func (mr *MockKBFSOpsMockRecorder) ClearConflictView(ctx, tlfID interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ClearConflictView", reflect.TypeOf((*MockKBFSOps)(nil).ClearConflictView), ctx, tlfID)
+}
+
 // Reset mocks base method
 func (m *MockKBFSOps) Reset(ctx context.Context, handle *TlfHandle) error {
 	m.ctrl.T.Helper()

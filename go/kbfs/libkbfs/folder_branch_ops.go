@@ -11,6 +11,7 @@ import (
 	stdpath "path"
 	"path/filepath"
 	"reflect"
+	"runtime/debug"
 	"sort"
 	"strings"
 	"sync"
@@ -722,11 +723,11 @@ func (fbo *folderBranchOps) clearConflictView(ctx context.Context) error {
 		if err != nil {
 			return err
 		}
-		journalServer, err := GetJournalServer(fbo.config)
+		journalManager, err := GetJournalManager(fbo.config)
 		if err != nil {
 			return err
 		}
-		journal, ok := journalServer.getTLFJournal(fbo.folderBranch.Tlf,
+		journal, ok := journalManager.getTLFJournal(fbo.folderBranch.Tlf,
 			fbo.head.GetTlfHandle())
 		if !ok {
 			return errJournalNotAvailable
@@ -785,6 +786,7 @@ func (fbo *folderBranchOps) getJournalPredecessorRevision(ctx context.Context) (
 	}
 
 	if jStatus.BranchID != kbfsmd.NullBranchID.String() {
+		fbo.log.CWarningf(ctx, "Stack: %s", debug.Stack())
 		return kbfsmd.RevisionUninitialized, errNoMergedRevWhileStaged
 	}
 
@@ -6543,6 +6545,8 @@ func (fbo *folderBranchOps) unstageLocked(ctx context.Context,
 	}
 
 	// now go forward in time, if possible
+	// !isUnmerged is true -> isUnmerged is false -> we are merged but
+	// shouldn't be?
 	err = fbo.getAndApplyMDUpdates(ctx, lState, nil,
 		fbo.applyMDUpdatesLocked)
 	if err != nil {

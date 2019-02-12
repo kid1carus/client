@@ -783,7 +783,7 @@ func TestBasicCRFailureAndFixing(t *testing.T) {
 	config2 := ConfigAsUser(config1, userName2)
 	defer CheckConfigAndShutdown(ctx, t, config2)
 
-	clock, now := newTestClockAndTimeNow()
+	clock, _ := newTestClockAndTimeNow()
 	config2.SetClock(clock)
 
 	name := userName1.String() + "," + userName2.String()
@@ -840,7 +840,7 @@ func TestBasicCRFailureAndFixing(t *testing.T) {
 	err = kbfsOps2.SyncAll(ctx, fileB2.GetFolderBranch())
 	require.NoError(t, err)
 
-	// re-enable updates, and wait for CR to complete
+	// re-enable updates, and wait for CR to fail
 	c <- struct{}{}
 	err = RestartCRForTesting(
 		BackgroundContextWithCancellationDelayer(), config2,
@@ -850,30 +850,13 @@ func TestBasicCRFailureAndFixing(t *testing.T) {
 		rootNode2.GetFolderBranch(), nil)
 	require.NoError(t, err)
 
-	err = kbfsOps1.SyncFromServer(ctx,
-		rootNode1.GetFolderBranch(), nil)
-	require.NoError(t, err)
+	// TODO: try CR 10 more times. On the 10th time it should ignore instead of
+	//  failing
 
-	cre := WriterDeviceDateConflictRenamer{}
-	// Make sure they both see the same set of children
-	expectedChildren := []string{
-		"b",
-		cre.ConflictRenameHelper(now, "u2", "dev1", "b"),
-	}
-	children1, err := kbfsOps1.GetDirChildren(ctx, dirA1)
-	require.NoError(t, err)
-
-	children2, err := kbfsOps2.GetDirChildren(ctx, dirA2)
-	require.NoError(t, err)
-
-	assert.Equal(t, len(expectedChildren), len(children1))
-
-	for _, child := range expectedChildren {
-		_, ok := children1[child]
-		assert.True(t, ok)
-	}
-
-	require.Equal(t, children1, children2)
+	// TODO: check .kbfs_status and verify that the conflict state is there
+	// TODO: check the file itself and make sure it is different on both places
+	// TODO: call clear conflicts
+	// TODO: check the conflict is gone.
 }
 
 // Tests that two users can create the same file simultaneously, and
