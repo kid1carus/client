@@ -99,6 +99,7 @@ export const keybase1LoginUiGetEmailOrUsername = 'engine-gen:keybase1LoginUiGetE
 export const keybase1LoginUiPromptRevokePaperKeys = 'engine-gen:keybase1LoginUiPromptRevokePaperKeys'
 export const keybase1LogsendPrepareLogsend = 'engine-gen:keybase1LogsendPrepareLogsend'
 export const keybase1NotifyAppExit = 'engine-gen:keybase1NotifyAppExit'
+export const keybase1NotifyAuditBoxAuditError = 'engine-gen:keybase1NotifyAuditBoxAuditError'
 export const keybase1NotifyAuditRootAuditError = 'engine-gen:keybase1NotifyAuditRootAuditError'
 export const keybase1NotifyBadgesBadgeState = 'engine-gen:keybase1NotifyBadgesBadgeState'
 export const keybase1NotifyCanUserPerformCanUserPerformChanged = 'engine-gen:keybase1NotifyCanUserPerformCanUserPerformChanged'
@@ -226,6 +227,7 @@ type _Chat1NotifyChatChatTypingUpdatePayload = $ReadOnly<{|params: $Exact<$Prope
 type _Chat1NotifyChatNewChatActivityPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<chat1Types.MessageTypes, 'chat.1.NotifyChat.NewChatActivity'>, 'inParam'>> & {|sessionID: number|}|}>
 type _ConnectedPayload = void
 type _DisconnectedPayload = void
+<<<<<<< HEAD
 type _Keybase1GpgUiConfirmDuplicateKeyChosenPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.gpgUi.confirmDuplicateKeyChosen'>, 'inParam'>> & {|sessionID: number|}, response: {error: keybase1Types.IncomingErrorCallback, result: ($PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.gpgUi.confirmDuplicateKeyChosen'>, 'outParam'>) => void}|}>
 type _Keybase1GpgUiConfirmImportSecretToExistingKeyPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.gpgUi.confirmImportSecretToExistingKey'>, 'inParam'>> & {|sessionID: number|}, response: {error: keybase1Types.IncomingErrorCallback, result: ($PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.gpgUi.confirmImportSecretToExistingKey'>, 'outParam'>) => void}|}>
 type _Keybase1GpgUiGetTTYPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.gpgUi.getTTY'>, 'inParam'>> & {|sessionID: number|}, response: {error: keybase1Types.IncomingErrorCallback, result: ($PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.gpgUi.getTTY'>, 'outParam'>) => void}|}>
@@ -344,6 +346,127 @@ type _Stellar1NotifyPendingPaymentsUpdatePayload = $ReadOnly<{|params: $Exact<$P
 type _Stellar1NotifyRecentPaymentsUpdatePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<stellar1Types.MessageTypes, 'stellar.1.notify.recentPaymentsUpdate'>, 'inParam'>> & {|sessionID: number|}|}>
 type _Stellar1NotifyRequestStatusNotificationPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<stellar1Types.MessageTypes, 'stellar.1.notify.requestStatusNotification'>, 'inParam'>> & {|sessionID: number|}|}>
 type _Stellar1UiPaymentReviewedPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<stellar1Types.MessageTypes, 'stellar.1.ui.paymentReviewed'>, 'inParam'>> & {|sessionID: number|}, response: {error: stellar1Types.IncomingErrorCallback, result: ($PropertyType<$PropertyType<stellar1Types.MessageTypes, 'stellar.1.ui.paymentReviewed'>, 'outParam'>) => void}|}>
+=======
+type _Keybase1GpgUiConfirmDuplicateKeyChosenPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.gpgUi.confirmDuplicateKeyChosen'>, 'inParam'>>|}>
+type _Keybase1GpgUiConfirmImportSecretToExistingKeyPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.gpgUi.confirmImportSecretToExistingKey'>, 'inParam'>>|}>
+type _Keybase1GpgUiGetTTYPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.gpgUi.getTTY'>, 'inParam'>>|}>
+type _Keybase1GpgUiSelectKeyAndPushOptionPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.gpgUi.selectKeyAndPushOption'>, 'inParam'>>|}>
+type _Keybase1GpgUiSelectKeyPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.gpgUi.selectKey'>, 'inParam'>>|}>
+type _Keybase1GpgUiSignPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.gpgUi.sign'>, 'inParam'>>|}>
+type _Keybase1GpgUiWantToAddGPGKeyPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.gpgUi.wantToAddGPGKey'>, 'inParam'>>|}>
+type _Keybase1GregorUIPushOutOfBandMessagesPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.gregorUI.pushOutOfBandMessages'>, 'inParam'>>|}>
+type _Keybase1GregorUIPushStatePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.gregorUI.pushState'>, 'inParam'>>|}>
+type _Keybase1HomeUIHomeUIRefreshPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.homeUI.homeUIRefresh'>, 'inParam'>>|}>
+type _Keybase1Identify3UiIdentify3ResultPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.identify3Ui.identify3Result'>, 'inParam'>>|}>
+type _Keybase1Identify3UiIdentify3ShowTrackerPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.identify3Ui.identify3ShowTracker'>, 'inParam'>>|}>
+type _Keybase1Identify3UiIdentify3TrackerTimedOutPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.identify3Ui.identify3TrackerTimedOut'>, 'inParam'>>|}>
+type _Keybase1Identify3UiIdentify3UpdateRowPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.identify3Ui.identify3UpdateRow'>, 'inParam'>>|}>
+type _Keybase1Identify3UiIdentify3UpdateUserCardPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.identify3Ui.identify3UpdateUserCard'>, 'inParam'>>|}>
+type _Keybase1Identify3UiIdentify3UserResetPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.identify3Ui.identify3UserReset'>, 'inParam'>>|}>
+type _Keybase1IdentifyUiCancelPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.identifyUi.cancel'>, 'inParam'>>|}>
+type _Keybase1IdentifyUiConfirmPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.identifyUi.confirm'>, 'inParam'>>|}>
+type _Keybase1IdentifyUiDelegateIdentifyUIPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.identifyUi.delegateIdentifyUI'>, 'inParam'>>|}>
+type _Keybase1IdentifyUiDismissPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.identifyUi.dismiss'>, 'inParam'>>|}>
+type _Keybase1IdentifyUiDisplayCryptocurrencyPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.identifyUi.displayCryptocurrency'>, 'inParam'>>|}>
+type _Keybase1IdentifyUiDisplayKeyPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.identifyUi.displayKey'>, 'inParam'>>|}>
+type _Keybase1IdentifyUiDisplayStellarAccountPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.identifyUi.displayStellarAccount'>, 'inParam'>>|}>
+type _Keybase1IdentifyUiDisplayTLFCreateWithInvitePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.identifyUi.displayTLFCreateWithInvite'>, 'inParam'>>|}>
+type _Keybase1IdentifyUiDisplayTrackStatementPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.identifyUi.displayTrackStatement'>, 'inParam'>>|}>
+type _Keybase1IdentifyUiDisplayUserCardPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.identifyUi.displayUserCard'>, 'inParam'>>|}>
+type _Keybase1IdentifyUiFinishPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.identifyUi.finish'>, 'inParam'>>|}>
+type _Keybase1IdentifyUiFinishSocialProofCheckPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.identifyUi.finishSocialProofCheck'>, 'inParam'>>|}>
+type _Keybase1IdentifyUiFinishWebProofCheckPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.identifyUi.finishWebProofCheck'>, 'inParam'>>|}>
+type _Keybase1IdentifyUiLaunchNetworkChecksPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.identifyUi.launchNetworkChecks'>, 'inParam'>>|}>
+type _Keybase1IdentifyUiReportLastTrackPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.identifyUi.reportLastTrack'>, 'inParam'>>|}>
+type _Keybase1IdentifyUiReportTrackTokenPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.identifyUi.reportTrackToken'>, 'inParam'>>|}>
+type _Keybase1IdentifyUiStartPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.identifyUi.start'>, 'inParam'>>|}>
+type _Keybase1LogUiLogPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.logUi.log'>, 'inParam'>>|}>
+type _Keybase1LoginUiDisplayPaperKeyPhrasePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.loginUi.displayPaperKeyPhrase'>, 'inParam'>>|}>
+type _Keybase1LoginUiDisplayPrimaryPaperKeyPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.loginUi.displayPrimaryPaperKey'>, 'inParam'>>|}>
+type _Keybase1LoginUiGetEmailOrUsernamePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.loginUi.getEmailOrUsername'>, 'inParam'>>|}>
+type _Keybase1LoginUiPromptRevokePaperKeysPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.loginUi.promptRevokePaperKeys'>, 'inParam'>>|}>
+type _Keybase1LogsendPrepareLogsendPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.logsend.prepareLogsend'>, 'inParam'>>|}>
+type _Keybase1NotifyAppExitPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyApp.exit'>, 'inParam'>>|}>
+type _Keybase1NotifyAuditBoxAuditErrorPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyAudit.boxAuditError'>, 'inParam'>>|}>
+type _Keybase1NotifyAuditRootAuditErrorPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyAudit.rootAuditError'>, 'inParam'>>|}>
+type _Keybase1NotifyBadgesBadgeStatePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyBadges.badgeState'>, 'inParam'>>|}>
+type _Keybase1NotifyCanUserPerformCanUserPerformChangedPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyCanUserPerform.canUserPerformChanged'>, 'inParam'>>|}>
+type _Keybase1NotifyDeviceCloneDeviceCloneCountChangedPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyDeviceClone.deviceCloneCountChanged'>, 'inParam'>>|}>
+type _Keybase1NotifyEphemeralNewTeamEkPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyEphemeral.newTeamEk'>, 'inParam'>>|}>
+type _Keybase1NotifyFSFSActivityPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyFS.FSActivity'>, 'inParam'>>|}>
+type _Keybase1NotifyFSFSEditListResponsePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyFS.FSEditListResponse'>, 'inParam'>>|}>
+type _Keybase1NotifyFSFSPathUpdatedPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyFS.FSPathUpdated'>, 'inParam'>>|}>
+type _Keybase1NotifyFSFSSyncActivityPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyFS.FSSyncActivity'>, 'inParam'>>|}>
+type _Keybase1NotifyFSFSSyncStatusResponsePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyFS.FSSyncStatusResponse'>, 'inParam'>>|}>
+type _Keybase1NotifyFavoritesFavoritesChangedPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyFavorites.favoritesChanged'>, 'inParam'>>|}>
+type _Keybase1NotifyKeyfamilyKeyfamilyChangedPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyKeyfamily.keyfamilyChanged'>, 'inParam'>>|}>
+type _Keybase1NotifyPGPPgpKeyInSecretStoreFilePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyPGP.pgpKeyInSecretStoreFile'>, 'inParam'>>|}>
+type _Keybase1NotifyPaperKeyPaperKeyCachedPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyPaperKey.paperKeyCached'>, 'inParam'>>|}>
+type _Keybase1NotifyPhoneNumberPhoneNumberAddedPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyPhoneNumber.phoneNumberAdded'>, 'inParam'>>|}>
+type _Keybase1NotifyPhoneNumberPhoneNumberSupersededPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyPhoneNumber.phoneNumberSuperseded'>, 'inParam'>>|}>
+type _Keybase1NotifyPhoneNumberPhoneNumberVerifiedPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyPhoneNumber.phoneNumberVerified'>, 'inParam'>>|}>
+type _Keybase1NotifyServiceShutdownPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyService.shutdown'>, 'inParam'>>|}>
+type _Keybase1NotifySessionClientOutOfDatePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifySession.clientOutOfDate'>, 'inParam'>>|}>
+type _Keybase1NotifySessionLoggedInPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifySession.loggedIn'>, 'inParam'>>|}>
+type _Keybase1NotifySessionLoggedOutPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifySession.loggedOut'>, 'inParam'>>|}>
+type _Keybase1NotifyTeamAvatarUpdatedPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyTeam.avatarUpdated'>, 'inParam'>>|}>
+type _Keybase1NotifyTeamNewlyAddedToTeamPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyTeam.newlyAddedToTeam'>, 'inParam'>>|}>
+type _Keybase1NotifyTeamTeamAbandonedPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyTeam.teamAbandoned'>, 'inParam'>>|}>
+type _Keybase1NotifyTeamTeamChangedByIDPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyTeam.teamChangedByID'>, 'inParam'>>|}>
+type _Keybase1NotifyTeamTeamChangedByNamePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyTeam.teamChangedByName'>, 'inParam'>>|}>
+type _Keybase1NotifyTeamTeamDeletedPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyTeam.teamDeleted'>, 'inParam'>>|}>
+type _Keybase1NotifyTeamTeamExitPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyTeam.teamExit'>, 'inParam'>>|}>
+type _Keybase1NotifyTrackingTrackingChangedPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyTracking.trackingChanged'>, 'inParam'>>|}>
+type _Keybase1NotifyUnverifiedTeamListTeamListUnverifiedChangedPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyUnverifiedTeamList.teamListUnverifiedChanged'>, 'inParam'>>|}>
+type _Keybase1NotifyUsersPasswordChangedPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyUsers.passwordChanged'>, 'inParam'>>|}>
+type _Keybase1NotifyUsersUserChangedPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.NotifyUsers.userChanged'>, 'inParam'>>|}>
+type _Keybase1PgpUiFinishedPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.pgpUi.finished'>, 'inParam'>>|}>
+type _Keybase1PgpUiKeyGeneratedPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.pgpUi.keyGenerated'>, 'inParam'>>|}>
+type _Keybase1PgpUiOutputSignatureSuccessNonKeybasePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.pgpUi.outputSignatureSuccessNonKeybase'>, 'inParam'>>|}>
+type _Keybase1PgpUiOutputSignatureSuccessPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.pgpUi.outputSignatureSuccess'>, 'inParam'>>|}>
+type _Keybase1PgpUiShouldPushPrivatePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.pgpUi.shouldPushPrivate'>, 'inParam'>>|}>
+type _Keybase1ProveUiCheckingPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.proveUi.checking'>, 'inParam'>>|}>
+type _Keybase1ProveUiDisplayRecheckWarningPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.proveUi.displayRecheckWarning'>, 'inParam'>>|}>
+type _Keybase1ProveUiOkToCheckPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.proveUi.okToCheck'>, 'inParam'>>|}>
+type _Keybase1ProveUiOutputInstructionsPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.proveUi.outputInstructions'>, 'inParam'>>|}>
+type _Keybase1ProveUiOutputPrechecksPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.proveUi.outputPrechecks'>, 'inParam'>>|}>
+type _Keybase1ProveUiPreProofWarningPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.proveUi.preProofWarning'>, 'inParam'>>|}>
+type _Keybase1ProveUiPromptOverwritePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.proveUi.promptOverwrite'>, 'inParam'>>|}>
+type _Keybase1ProveUiPromptUsernamePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.proveUi.promptUsername'>, 'inParam'>>|}>
+type _Keybase1ProvisionUiChooseDevicePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.provisionUi.chooseDevice'>, 'inParam'>>|}>
+type _Keybase1ProvisionUiChooseDeviceTypePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.provisionUi.chooseDeviceType'>, 'inParam'>>|}>
+type _Keybase1ProvisionUiChooseGPGMethodPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.provisionUi.chooseGPGMethod'>, 'inParam'>>|}>
+type _Keybase1ProvisionUiChooseProvisioningMethodPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.provisionUi.chooseProvisioningMethod'>, 'inParam'>>|}>
+type _Keybase1ProvisionUiDisplayAndPromptSecretPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.provisionUi.DisplayAndPromptSecret'>, 'inParam'>>|}>
+type _Keybase1ProvisionUiDisplaySecretExchangedPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.provisionUi.DisplaySecretExchanged'>, 'inParam'>>|}>
+type _Keybase1ProvisionUiPromptNewDeviceNamePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.provisionUi.PromptNewDeviceName'>, 'inParam'>>|}>
+type _Keybase1ProvisionUiProvisioneeSuccessPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.provisionUi.ProvisioneeSuccess'>, 'inParam'>>|}>
+type _Keybase1ProvisionUiProvisionerSuccessPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.provisionUi.ProvisionerSuccess'>, 'inParam'>>|}>
+type _Keybase1ProvisionUiSwitchToGPGSignOKPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.provisionUi.switchToGPGSignOK'>, 'inParam'>>|}>
+type _Keybase1ReachabilityReachabilityChangedPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.reachability.reachabilityChanged'>, 'inParam'>>|}>
+type _Keybase1RekeyUIDelegateRekeyUIPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.rekeyUI.delegateRekeyUI'>, 'inParam'>>|}>
+type _Keybase1RekeyUIRefreshPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.rekeyUI.refresh'>, 'inParam'>>|}>
+type _Keybase1RekeyUIRekeySendEventPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.rekeyUI.rekeySendEvent'>, 'inParam'>>|}>
+type _Keybase1SaltpackUiSaltpackPromptForDecryptPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.saltpackUi.saltpackPromptForDecrypt'>, 'inParam'>>|}>
+type _Keybase1SaltpackUiSaltpackVerifyBadSenderPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.saltpackUi.saltpackVerifyBadSender'>, 'inParam'>>|}>
+type _Keybase1SaltpackUiSaltpackVerifySuccessPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.saltpackUi.saltpackVerifySuccess'>, 'inParam'>>|}>
+type _Keybase1SecretUiGetPassphrasePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.secretUi.getPassphrase'>, 'inParam'>>|}>
+type _Keybase1StreamUiClosePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.streamUi.close'>, 'inParam'>>|}>
+type _Keybase1StreamUiReadPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.streamUi.read'>, 'inParam'>>|}>
+type _Keybase1StreamUiResetPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.streamUi.reset'>, 'inParam'>>|}>
+type _Keybase1StreamUiWritePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.streamUi.write'>, 'inParam'>>|}>
+type _Keybase1TeamsUiConfirmRootTeamDeletePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.teamsUi.confirmRootTeamDelete'>, 'inParam'>>|}>
+type _Keybase1TeamsUiConfirmSubteamDeletePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.teamsUi.confirmSubteamDelete'>, 'inParam'>>|}>
+type _Keybase1UiPromptYesNoPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<keybase1Types.MessageTypes, 'keybase.1.ui.promptYesNo'>, 'inParam'>>|}>
+type _Stellar1NotifyAccountDetailsUpdatePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<stellar1Types.MessageTypes, 'stellar.1.notify.accountDetailsUpdate'>, 'inParam'>>|}>
+type _Stellar1NotifyAccountsUpdatePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<stellar1Types.MessageTypes, 'stellar.1.notify.accountsUpdate'>, 'inParam'>>|}>
+type _Stellar1NotifyPaymentNotificationPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<stellar1Types.MessageTypes, 'stellar.1.notify.paymentNotification'>, 'inParam'>>|}>
+type _Stellar1NotifyPaymentStatusNotificationPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<stellar1Types.MessageTypes, 'stellar.1.notify.paymentStatusNotification'>, 'inParam'>>|}>
+type _Stellar1NotifyPendingPaymentsUpdatePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<stellar1Types.MessageTypes, 'stellar.1.notify.pendingPaymentsUpdate'>, 'inParam'>>|}>
+type _Stellar1NotifyRecentPaymentsUpdatePayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<stellar1Types.MessageTypes, 'stellar.1.notify.recentPaymentsUpdate'>, 'inParam'>>|}>
+type _Stellar1NotifyRequestStatusNotificationPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<stellar1Types.MessageTypes, 'stellar.1.notify.requestStatusNotification'>, 'inParam'>>|}>
+type _Stellar1UiPaymentReviewedPayload = $ReadOnly<{|params: $Exact<$PropertyType<$PropertyType<stellar1Types.MessageTypes, 'stellar.1.ui.paymentReviewed'>, 'inParam'>>|}>
+>>>>>>> bb07a7992c... team box auditor
 
 // Action Creators
 export const createChat1ChatUiChatAttachmentDownloadDone = (payload: _Chat1ChatUiChatAttachmentDownloadDonePayload) => ({payload, type: chat1ChatUiChatAttachmentDownloadDone})
@@ -433,6 +556,7 @@ export const createKeybase1LoginUiGetEmailOrUsername = (payload: _Keybase1LoginU
 export const createKeybase1LoginUiPromptRevokePaperKeys = (payload: _Keybase1LoginUiPromptRevokePaperKeysPayload) => ({payload, type: keybase1LoginUiPromptRevokePaperKeys})
 export const createKeybase1LogsendPrepareLogsend = (payload: _Keybase1LogsendPrepareLogsendPayload) => ({payload, type: keybase1LogsendPrepareLogsend})
 export const createKeybase1NotifyAppExit = (payload: _Keybase1NotifyAppExitPayload) => ({payload, type: keybase1NotifyAppExit})
+export const createKeybase1NotifyAuditBoxAuditError = (payload: _Keybase1NotifyAuditBoxAuditErrorPayload) => ({payload, type: keybase1NotifyAuditBoxAuditError})
 export const createKeybase1NotifyAuditRootAuditError = (payload: _Keybase1NotifyAuditRootAuditErrorPayload) => ({payload, type: keybase1NotifyAuditRootAuditError})
 export const createKeybase1NotifyBadgesBadgeState = (payload: _Keybase1NotifyBadgesBadgeStatePayload) => ({payload, type: keybase1NotifyBadgesBadgeState})
 export const createKeybase1NotifyCanUserPerformCanUserPerformChanged = (payload: _Keybase1NotifyCanUserPerformCanUserPerformChangedPayload) => ({payload, type: keybase1NotifyCanUserPerformCanUserPerformChanged})
@@ -600,6 +724,7 @@ export type Keybase1LoginUiGetEmailOrUsernamePayload = {|+payload: _Keybase1Logi
 export type Keybase1LoginUiPromptRevokePaperKeysPayload = {|+payload: _Keybase1LoginUiPromptRevokePaperKeysPayload, +type: 'engine-gen:keybase1LoginUiPromptRevokePaperKeys'|}
 export type Keybase1LogsendPrepareLogsendPayload = {|+payload: _Keybase1LogsendPrepareLogsendPayload, +type: 'engine-gen:keybase1LogsendPrepareLogsend'|}
 export type Keybase1NotifyAppExitPayload = {|+payload: _Keybase1NotifyAppExitPayload, +type: 'engine-gen:keybase1NotifyAppExit'|}
+export type Keybase1NotifyAuditBoxAuditErrorPayload = {|+payload: _Keybase1NotifyAuditBoxAuditErrorPayload, +type: 'engine-gen:keybase1NotifyAuditBoxAuditError'|}
 export type Keybase1NotifyAuditRootAuditErrorPayload = {|+payload: _Keybase1NotifyAuditRootAuditErrorPayload, +type: 'engine-gen:keybase1NotifyAuditRootAuditError'|}
 export type Keybase1NotifyBadgesBadgeStatePayload = {|+payload: _Keybase1NotifyBadgesBadgeStatePayload, +type: 'engine-gen:keybase1NotifyBadgesBadgeState'|}
 export type Keybase1NotifyCanUserPerformCanUserPerformChangedPayload = {|+payload: _Keybase1NotifyCanUserPerformCanUserPerformChangedPayload, +type: 'engine-gen:keybase1NotifyCanUserPerformCanUserPerformChanged'|}
@@ -769,6 +894,7 @@ export type Actions =
   | Keybase1LoginUiPromptRevokePaperKeysPayload
   | Keybase1LogsendPrepareLogsendPayload
   | Keybase1NotifyAppExitPayload
+  | Keybase1NotifyAuditBoxAuditErrorPayload
   | Keybase1NotifyAuditRootAuditErrorPayload
   | Keybase1NotifyBadgesBadgeStatePayload
   | Keybase1NotifyCanUserPerformCanUserPerformChangedPayload
