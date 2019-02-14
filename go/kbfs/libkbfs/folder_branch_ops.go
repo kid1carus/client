@@ -717,9 +717,15 @@ func (fbo *folderBranchOps) clearConflictView(ctx context.Context) error {
 	fbo.mdWriterLock.Lock(lState)
 	defer fbo.mdWriterLock.Unlock(lState)
 
+	ctx = fbo.ctxWithFBOID(ctx)
+	ctx, err := NewContextWithCancellationDelayer(ctx)
+	if err != nil {
+		return err
+	}
+
 	journalEnabled := TLFJournalEnabled(fbo.config, fbo.id())
 	if journalEnabled {
-		err := fbo.unstageLocked(ctx, lState, doNotPruneBranches)
+		err := fbo.unstageLocked(ctx, lState, moveJournalsAway)
 		if err != nil {
 			return err
 		}
@@ -6520,12 +6526,12 @@ func (fbo *folderBranchOps) undoUnmergedMDUpdatesLocked(
 }
 
 const (
-	doPruneBranches    = true
-	doNotPruneBranches = false
+	doPruneBranches  = true
+	moveJournalsAway = false
 )
 
 func (fbo *folderBranchOps) unstageLocked(ctx context.Context,
-	lState *lockState, doPrune bool) error {
+	lState *lockState, pruningBehavior bool) error {
 	fbo.mdWriterLock.AssertLocked(lState)
 
 	// fetch all of my unstaged updates, and undo them one at a time
@@ -6537,10 +6543,24 @@ func (fbo *folderBranchOps) unstageLocked(ctx context.Context,
 	}
 
 	// let the server know we no longer have need
-	if wasUnmergedBranch && doPrune {
+	if wasUnmergedBranch && pruningBehavior == doPruneBranches {
 		err = fbo.config.MDOps().PruneBranch(ctx, fbo.id(), unmergedBID)
 		if err != nil {
 			return err
+		}
+	} else {
+		jManager, err := GetJournalManager(fbo.config)
+		if err != nil {
+			return err
+		}
+
+		if tlfJournal, ok := jManager.getTLFJournal(fbo.id(), nil); ok {
+			err = tlfJournal.moveAway(ctx)
+			if err != nil {
+				return err
+			}
+		} else {
+			return errJournalNotAvailable
 		}
 	}
 
