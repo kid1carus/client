@@ -57,12 +57,18 @@ const (
 	// If we have failed at CR 10 times, probably it's never going to work and
 	// we should give up.
 	maxConflictResolutionAttempts = 10
+
+	alwaysFailCR      = true
+	doNotAlwaysFailCR = false
 )
 
 // ErrTooManyCRAttempts is an error that indicates that CR has failed
 // too many times, and it being stopped.
 var ErrTooManyCRAttempts = errors.New(
 	"too many attempts at conflict resolution on this TLF")
+
+var ErrCRFailForTest = errors.New(
+	"conflict resolution failed because test requested it")
 
 // CtxCROpID is the display name for the unique operation
 // conflict resolution ID tag.
@@ -94,6 +100,8 @@ type ConflictResolver struct {
 	currCancel    context.CancelFunc
 	lockNextTime  bool
 	canceledCount int
+
+	alwaysFailForTest bool
 }
 
 // NewConflictResolver constructs a new ConflictResolver (and launches
@@ -3458,13 +3466,14 @@ func (cr *ConflictResolver) doResolve(ctx context.Context, ci conflictInput) {
 		}
 	}()
 
-	if _, err = os.Stat("/tmp/no_cr"); !os.IsNotExist(err) {
-		panic("CR disabled by file.")
-	}
-
 	// Canceled before we even got started?
 	err = cr.checkDone(ctx)
 	if err != nil {
+		return
+	}
+
+	if cr.config.IsTestMode() && cr.alwaysFailForTest {
+		err = ErrCRFailForTest
 		return
 	}
 
