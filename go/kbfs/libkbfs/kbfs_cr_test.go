@@ -859,7 +859,7 @@ func TestBasicCRFailureAndFixing(t *testing.T) {
 	require.NoError(t, err)
 
 	t.Log("Try to SyncFromServer on user 2.")
-	ctxWithSoonCancel, _ := context.WithTimeout(ctx, time.Second)
+	ctxWithSoonCancel, _ := context.WithTimeout(ctx, 50*time.Millisecond)
 	err = kbfsOps2.SyncFromServer(ctxWithSoonCancel,
 		rootNode2.GetFolderBranch(), nil)
 	require.Error(t, err, "context deadline exceeded")
