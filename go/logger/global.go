@@ -14,22 +14,30 @@ import (
 var globalLock sync.Mutex
 var stderrIsTerminal = isatty.IsTerminal(os.Stderr.Fd())
 var currentLogFileWriter *LogFileWriter
+var stdErrLoggingShutdown chan<- struct{}
 
-func getBufferedErrorWriter() io.Writer {
-	writer := ErrorWriter()
+func bufferLogs(writer io.Writer) (io.Writer, chan<- struct{}) {
 	buf := bufio.NewWriter(writer)
+	shutdown := make(chan struct{})
 	go func() {
-		for range time.Tick(300 * time.Millisecond) {
-			// TODO: do we care if this errors
-			buf.Flush()
+		t := time.NewTicker(300 * time.Millisecond)
+		for {
+			select {
+			case <-t.C:
+				buf.Flush()
+			case <-shutdown:
+				buf.Flush()
+				t.Stop()
+				return
+			}
 		}
 	}()
-	return buf
+	return buf, shutdown
 }
 
 func init() {
-	// TODO: I am not sure how color gets set on the logger,
-	//  but it's not logging in color anymore sometimes
-	logBackend := logging.NewLogBackend(getBufferedErrorWriter(), "", 0)
+	writer, shutdown := bufferLogs(ErrorWriter())
+	stdErrLoggingShutdown = shutdown
+	logBackend := logging.NewLogBackend(writer, "", 0)
 	logging.SetBackend(logBackend)
 }
