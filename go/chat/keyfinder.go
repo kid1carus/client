@@ -13,28 +13,12 @@ import (
 	"golang.org/x/net/context"
 )
 
-// KeyFinder remembers results from previous calls to CryptKeys().
-type KeyFinder interface {
-	FindForEncryption(ctx context.Context, tlfName string, teamID chat1.TLFID,
-		membersType chat1.ConversationMembersType, public bool) (types.CryptKey, types.NameInfo, error)
-	FindForDecryption(ctx context.Context, tlfName string, teamID chat1.TLFID,
-		membersType chat1.ConversationMembersType, public bool, keyGeneration int,
-		kbfsEncrypted bool) (types.CryptKey, error)
-	EphemeralKeyForEncryption(ctx context.Context, tlfName string, teamID chat1.TLFID,
-		membersType chat1.ConversationMembersType, public bool) (keybase1.TeamEk, error)
-	EphemeralKeyForDecryption(ctx context.Context, tlfName string, teamID chat1.TLFID,
-		membersType chat1.ConversationMembersType, public bool,
-		generation keybase1.EkGeneration, contentCtime *gregor1.Time) (keybase1.TeamEk, error)
-	ShouldPairwiseMAC(ctx context.Context, tlfName string, teamID chat1.TLFID,
-		membersType chat1.ConversationMembersType, public bool) (bool, []keybase1.KID, error)
-	Reset()
-}
-
 type encItem struct {
 	key types.CryptKey
 	ni  types.NameInfo
 }
 
+// KeyFinder remembers results from previous calls to CryptKeys().
 type KeyFinderImpl struct {
 	globals.Contextified
 	utils.DebugLabeler
@@ -46,7 +30,7 @@ type KeyFinderImpl struct {
 }
 
 // NewKeyFinder creates a KeyFinder.
-func NewKeyFinder(g *globals.Context) KeyFinder {
+func NewKeyFinder(g *globals.Context) types.KeyFinder {
 	return &KeyFinderImpl{
 		Contextified: globals.NewContextified(g),
 		DebugLabeler: utils.NewDebugLabeler(g.GetLog(), "KeyFinder", false),

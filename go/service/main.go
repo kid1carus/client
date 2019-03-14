@@ -387,7 +387,7 @@ func (d *Service) startChatModules() {
 		g.FetchRetrier.Start(context.Background(), uid)
 		g.EphemeralPurger.Start(context.Background(), uid)
 		g.InboxSource.Start(context.Background(), uid)
-		g.Indexer.Start(chat.Context(context.Background(), g,
+		g.Indexer.Start(globals.RequestContext(context.Background(), g,
 			keybase1.TLFIdentifyBehavior_CHAT_SKIP, nil, nil), uid)
 		g.CoinFlipManager.Start(context.Background(), uid)
 	}
@@ -413,6 +413,8 @@ func (d *Service) SetupChatModules(ri func() chat1.RemoteInterface) {
 	// Set up main chat data sources
 	boxer := chat.NewBoxer(g)
 	chatStorage := storage.New(g, nil)
+	g.KeyFinder = chat.NewKeyFinder(g)
+	g.UPAKFinder = chat.NewCachingUPAKFinder(g)
 	g.InboxSource = chat.NewInboxSource(g, g.Env.GetInboxSourceType(), ri)
 	g.ConvSource = chat.NewConversationSource(g, g.Env.GetConvSourceType(),
 		boxer, chatStorage, ri)

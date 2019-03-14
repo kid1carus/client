@@ -533,7 +533,7 @@ func (t *ImplicitTeamsNameInfoSource) identify(ctx context.Context, tlfID chat1.
 	names = append(names, impTeamName.Readers.KeybaseUsers...)
 
 	// identify the members in the conversation
-	identBehavior, _, ok := types.IdentifyMode(ctx)
+	identBehavior, _, ok := globals.CtxIdentifyMode(ctx)
 	if !ok {
 		return res, errors.New("invalid context with no chat metadata")
 	}
@@ -547,7 +547,7 @@ func (t *ImplicitTeamsNameInfoSource) identify(ctx context.Context, tlfID chat1.
 				return keybase1.CanonicalTlfName(impTeamName.String())
 			})
 		close(cb)
-	}(BackgroundContext(ctx, t.G()))
+	}(globals.BackgroundRequestContext(ctx, t.G()))
 	switch identBehavior {
 	case keybase1.TLFIdentifyBehavior_CHAT_GUI:
 		// For GUI mode, let's just let this identify roll in the background. We will be sending up
