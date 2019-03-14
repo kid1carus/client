@@ -520,7 +520,6 @@ func AppWillExit(pusher PushNotifier) {
 // [iOS] returning true will request about ~3mins from iOS to continue execution
 func AppDidEnterBackground() bool {
 	if !isInited() {
-		kbCtx.Log.Debug("AppDidEnterBackground: not inited")
 		return false
 	}
 	defer kbCtx.Trace("AppDidEnterBackground", func() error { return nil })()
