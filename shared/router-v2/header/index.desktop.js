@@ -25,6 +25,12 @@ class Header extends React.PureComponent<Props> {
       title = <CustomTitle>{opt.title}</CustomTitle>
     }
 
+    let rightActions = null
+    if (typeof opt.headerRightActions === 'function') {
+      const CustomActions = opt.headerRightActions
+      rightActions = <CustomActions />
+    }
+
     let style = null
     if (opt.headerTransparent) {
       style = {position: 'absolute', zIndex: 9999}
@@ -49,7 +55,10 @@ class Header extends React.PureComponent<Props> {
           />
         </Kb.Box2>
         <Kb.Box2 direction="horizontal" fullWidth={true}>
-          {title}
+          <Kb.Box2 direction="horizontal" style={styles.flexOne}>
+            {title}
+          </Kb.Box2>
+          {rightActions}
         </Kb.Box2>
       </Kb.Box2>
     )
@@ -57,6 +66,9 @@ class Header extends React.PureComponent<Props> {
 }
 
 const styles = Styles.styleSheetCreate({
+  flexOne: {
+    flex: 1,
+  },
   headerBack: Styles.platformStyles({
     isElectron: {
       alignItems: 'center',
@@ -66,6 +78,7 @@ const styles = Styles.styleSheetCreate({
   headerContainer: Styles.platformStyles({
     isElectron: {
       alignItems: 'center',
+      borderBottom: `1px solid ${Styles.globalColors.black_10}`,
       ...Styles.desktopStyles.windowDragging,
     },
   }),
