@@ -141,7 +141,7 @@ export const newRoutes = {
     getScreen: () => MaybePopupHoc(true)(require('./edit-team-description/container').default),
   },
   member: {getScreen: () => require('./team/member/container').default},
-  'tabs.teamsTab': {getScreen: () => require('./container').default},
+  'tabs.teamsTab': {getScreen: () => require('./container').default, upgraded: true},
   team: {getScreen: () => require('./team/container').default},
 }
 
@@ -152,6 +152,6 @@ export const newModalRoutes = {
   reallyRemoveMember: {getScreen: () => require('./team/really-remove-member/container').default},
   retentionWarning: {getScreen: () => require('./team/settings-tab/retention/warning/container').default},
   rolePicker: {getScreen: () => require('./role-picker/container').default},
-  showJoinTeamDialog: {getScreen: () => require('./join-team/container').default},
-  showNewTeamDialog: {getScreen: () => require('./new-team/container').default},
+  showJoinTeamDialog: {getScreen: () => require('./join-team/container').default, upgraded: true},
+  showNewTeamDialog: {getScreen: () => require('./new-team/container').default}, // TODO get rid of routePath calculation
 }
