@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch, {routePath}) => ({
         }),
       })
     ),
-  _loadPathMetadata: (path: Types.Path) => dispatch(FsGen.createLoadPathMetadata({path})),
+  _loadPathMetadata: (path: Types.Path) => dispatch(FsGen.createLoadPathMetadata({path, refreshTag: 'main'})),
   waitForKbfsDaemon: () => dispatch(FsGen.createWaitForKbfsDaemon()),
 })
 
